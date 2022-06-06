@@ -1,8 +1,9 @@
+import { Box } from "@mantine/core";
 import { Canvas } from "@react-three/fiber";
 
 function App() {
   return (
-    <div id="canvas-container">
+    <Box id="canvas-container" sx={{ height: "100vh" }}>
       <Canvas>
         <ambientLight intensity={0.1} />
         <directionalLight color="red" position={[0, 0, 5]} />
@@ -11,7 +12,7 @@ function App() {
           <meshStandardMaterial />
         </mesh>
       </Canvas>
-    </div>
+    </Box>
   );
 }
 

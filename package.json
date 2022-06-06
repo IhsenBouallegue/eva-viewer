@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.8",
+    "@mantine/hooks": "^4.2.8",
     "@react-three/fiber": "^8.0.22",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
