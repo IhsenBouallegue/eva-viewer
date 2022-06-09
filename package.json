@@ -10,6 +10,7 @@
   "dependencies": {
     "@mantine/core": "^4.2.8",
     "@mantine/hooks": "^4.2.8",
+    "@react-three/drei": "^9.12.0",
     "@react-three/fiber": "^8.0.22",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/three": "^0.141.0",
     "@vitejs/plugin-react": "^1.3.0",
     "typescript": "^4.6.3",
     "vite": "^2.9.9"
