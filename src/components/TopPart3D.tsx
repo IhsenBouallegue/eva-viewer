@@ -1,23 +1,34 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { Vector3toFace } from "../util/functions";
+import { CalculateTopPart, Vector3toFace } from "../utils/functions";
 
 export const TopPart3D = ({
   setLength,
-  ...props
+  position,
+  sigma,
+  height,
+  slantLength,
+  width,
+  totalLength,
 }: {
-  setLength: (x: any) => void;
+  setLength: any;
+  position: any;
+  sigma: number;
+  height: number;
+  slantLength: number;
+  width: number;
+  totalLength: number;
 }) => {
   const measures = new THREE.Vector3();
   const ref = useRef<THREE.Mesh>(null!);
-  const a = new THREE.Vector3(0, 20, 28.28);
-  const b = new THREE.Vector3(10, 20, 38.38);
-  const c = new THREE.Vector3(0, 0, 0);
-  const d = new THREE.Vector3(30, 0, 30);
-  const e = new THREE.Vector3(0, 20, 100);
-  const f = new THREE.Vector3(10, 20, 100);
-  const g = new THREE.Vector3(0, 0, 100);
-  const h = new THREE.Vector3(30, 0, 100);
+  const { a, b, c, d, e, f, g, h } = CalculateTopPart(
+    sigma,
+    height,
+    slantLength,
+    width,
+    totalLength
+  );
+
   const face1 = Vector3toFace(c, a, b, d);
   const face2 = Vector3toFace(h, d, b, f);
   const face3 = Vector3toFace(b, a, e, f);
@@ -29,7 +40,7 @@ export const TopPart3D = ({
     setLength(measures.z);
   }, []);
   return (
-    <group {...props}>
+    <group position={position}>
       <mesh>
         <bufferGeometry>
           <bufferAttribute

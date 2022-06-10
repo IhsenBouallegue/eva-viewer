@@ -1,34 +1,30 @@
 import { Box } from "@mantine/core";
-import { PresentationControls } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
-import { TopPart3D } from "../components/TopPart3D";
+import { TopPart3D } from "./components/TopPart3D";
 
 function App() {
   const [length, setLength] = useState(0);
-
   return (
-    <Box id="canvas-container" sx={{ height: "100vh" }}>
-      <Canvas
-        orthographic
-        dpr={[1, 2]}
-        camera={{ position: [0, 0, 200], zoom: 5 }}
-      >
+    <Box id="canvas-container" sx={{ height: "100vh", position: "relative" }}>
+      <Canvas>
         <ambientLight intensity={0.1} />
-        <directionalLight position={[0, 0, 5]} />
-        <PresentationControls
-          global={true}
-          speed={2}
-          rotation={[Math.PI / 10, -Math.PI / 4, 0]}
-        >
-          <TopPart3D position={[0, 0, -length / 2]} setLength={setLength} />
-          <gridHelper
-            args={[200, 20, "#000000", "#000000"]}
-            position={[0, 0, 0]}
-            rotation={[0, 0, 0]}
-          />
-        </PresentationControls>
+        <directionalLight position={[50, 50, -100]} />
+        <PerspectiveCamera makeDefault position={[0, 1000, 0]} far={10000} />
+        <OrbitControls />
+        <TopPart3D
+          position={[0, 0, -length / 2]}
+          setLength={setLength}
+          sigma={45}
+          height={20}
+          slantLength={20}
+          width={93}
+          totalLength={700}
+        />
+        <gridHelper args={[1000, 100]} position={[0, 0, 0]} />
       </Canvas>
+      <Box sx={{ position: "absolute", left: "1em", top: "1em" }}>foo</Box>
     </Box>
   );
 }
