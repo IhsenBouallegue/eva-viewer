@@ -1,7 +1,10 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { computeVertices } from "../utils/functions";
-
+import {
+  mergeBufferGeometries,
+  mergeVertices,
+} from "three/examples/jsm/utils/BufferGeometryUtils.js";
 export const TopPart3D = ({
   setLength,
   position,
@@ -20,8 +23,6 @@ export const TopPart3D = ({
   totalLength: number;
 }) => {
   const measures = new THREE.Vector3();
-  const mesh = useRef<THREE.Mesh>(null!);
-  const mirrorMesh = useRef<THREE.Mesh>(null!);
   let vertices = computeVertices(
     sigma,
     height,
@@ -29,49 +30,28 @@ export const TopPart3D = ({
     width,
     totalLength
   );
-
-  useLayoutEffect(() => {
-    mesh.current.geometry.attributes.position.needsUpdate = true;
-    mirrorMesh.current.geometry.attributes.position.needsUpdate = true;
-    new THREE.Box3().setFromObject(mirrorMesh.current).getSize(measures);
+  const mergedGeometry = useMemo(() => {
+    const geo1 = new THREE.BufferGeometry();
+    geo1.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+    const geo2 = geo1
+      .clone()
+      .applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
+    const mergedGeometry = mergeVertices(mergeBufferGeometries([geo1, geo2]));
+    mergedGeometry.computeBoundingBox();
+    mergedGeometry.boundingBox?.getSize(measures);
     setLength(measures.z);
+    return mergedGeometry;
   }, [sigma, height, slantLength, width, totalLength]);
 
-  useEffect(() => {
-    mirrorMesh.current.applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
-  }, []);
   return (
     <group position={position}>
-      <mesh ref={mesh}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={24}
-            array={vertices}
-            itemSize={3}
-          />
-        </bufferGeometry>
+      <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading={true}
           color="#646572"
           roughness={0.3}
           metalness={0.5}
-        />
-      </mesh>
-      <mesh ref={mirrorMesh}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={24}
-            array={vertices}
-            itemSize={3}
-          />
-        </bufferGeometry>
-        <meshStandardMaterial
-          flatShading={true}
-          color="#646572"
-          roughness={0.3}
-          metalness={0.5}
+          side={THREE.DoubleSide}
         />
       </mesh>
     </group>
