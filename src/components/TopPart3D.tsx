@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import * as THREE from "three";
-import { CalculateTopPart, Vector3toFace } from "../utils/functions";
+import { computeVertices } from "../utils/functions";
 
 export const TopPart3D = ({
   setLength,
@@ -76,27 +76,3 @@ export const TopPart3D = ({
 };
 
 export default TopPart3D;
-
-function computeVertices(
-  sigma: number,
-  height: number,
-  slantLength: number,
-  width: number,
-  totalLength: number
-) {
-  let vertices = new Float32Array();
-  const { a, b, c, d, e, f, g, h } = CalculateTopPart(
-    sigma,
-    height,
-    slantLength,
-    width,
-    totalLength
-  );
-
-  const face1 = Vector3toFace(c, a, b, d);
-  const face2 = Vector3toFace(h, d, b, f);
-  const face3 = Vector3toFace(b, a, e, f);
-  const face4 = Vector3toFace(h, f, e, g);
-  vertices = new Float32Array([...face1, ...face2, ...face3, ...face4]);
-  return vertices;
-}

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export const Vector3toFace = (
+export const vector3toFace = (
   vectors1: THREE.Vector3,
   vectors2: THREE.Vector3,
   vectors3: THREE.Vector3,
@@ -16,7 +16,7 @@ export const Vector3toFace = (
   ];
 };
 
-export const CalculateTopPart = (
+export const calculateTopPart = (
   sigma: number,
   height: number,
   slantLength: number,
@@ -43,3 +43,27 @@ export const CalculateTopPart = (
 
   return { a, b, c, d, e, f, g, h };
 };
+
+export function computeVertices(
+  sigma: number,
+  height: number,
+  slantLength: number,
+  width: number,
+  totalLength: number
+) {
+  let vertices = new Float32Array();
+  const { a, b, c, d, e, f, g, h } = calculateTopPart(
+    sigma,
+    height,
+    slantLength,
+    width,
+    totalLength
+  );
+
+  const face1 = vector3toFace(c, a, b, d);
+  const face2 = vector3toFace(h, d, b, f);
+  const face3 = vector3toFace(b, a, e, f);
+  const face4 = vector3toFace(h, f, e, g);
+  vertices = new Float32Array([...face1, ...face2, ...face3, ...face4]);
+  return vertices;
+}
