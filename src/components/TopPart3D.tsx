@@ -5,6 +5,16 @@ import {
   mergeBufferGeometries,
   mergeVertices,
 } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+interface Props {
+  setLength: any;
+  position: any;
+  sigma: number;
+  height: number;
+  slantLength: number;
+  width: number;
+  totalLength: number;
+}
+
 export const TopPart3D = ({
   setLength,
   position,
@@ -13,15 +23,7 @@ export const TopPart3D = ({
   slantLength,
   width,
   totalLength,
-}: {
-  setLength: any;
-  position: any;
-  sigma: number;
-  height: number;
-  slantLength: number;
-  width: number;
-  totalLength: number;
-}) => {
+}: Props) => {
   const measures = new THREE.Vector3();
   let vertices = computeVertices(
     sigma,
