@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import * as THREE from "three";
 import { computeVertices } from "../utils/functions";
 
@@ -29,14 +29,17 @@ export const TopPart3D = ({
     width,
     totalLength
   );
-  console.log(vertices);
+
   useLayoutEffect(() => {
     mesh.current.geometry.attributes.position.needsUpdate = true;
-    mirrorMesh.current.applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
     mirrorMesh.current.geometry.attributes.position.needsUpdate = true;
     new THREE.Box3().setFromObject(mirrorMesh.current).getSize(measures);
     setLength(measures.z);
   }, [sigma, height, slantLength, width, totalLength]);
+
+  useEffect(() => {
+    mirrorMesh.current.applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
+  }, []);
   return (
     <group position={position}>
       <mesh ref={mesh}>
