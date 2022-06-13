@@ -7,22 +7,28 @@ import {
 } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 interface Props {
   setLength: any;
+  setHeight: any;
   position: any;
   sigma: number;
   height: number;
   slantLength: number;
   width: number;
   totalLength: number;
+  bodyHeight: number;
+  alpha: number;
 }
 
 export const TopPart3D = ({
   setLength,
+  setHeight,
   position,
   sigma,
   height,
   slantLength,
   width,
   totalLength,
+  bodyHeight,
+  alpha,
 }: Props) => {
   const measures = new THREE.Vector3();
   let vertices = computeVertices(
@@ -30,7 +36,9 @@ export const TopPart3D = ({
     height,
     slantLength,
     width,
-    totalLength
+    totalLength,
+    bodyHeight,
+    alpha
   );
   const mergedGeometry = useMemo(() => {
     const geo1 = new THREE.BufferGeometry();
@@ -42,6 +50,7 @@ export const TopPart3D = ({
     mergedGeometry.computeBoundingBox();
     mergedGeometry.boundingBox?.getSize(measures);
     setLength(measures.z);
+    setHeight(measures.y - height);
     return mergedGeometry;
   }, [sigma, height, slantLength, width, totalLength]);
 

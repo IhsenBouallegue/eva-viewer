@@ -21,7 +21,9 @@ export const calculateTopPart = (
   height: number,
   slantLength: number,
   width: number,
-  totalLength: number
+  totalLength: number,
+  bodyHeight: number,
+  alpha: number
 ) => {
   const rad = (angleInDegrees: number) => {
     return (angleInDegrees * Math.PI) / 180;
@@ -41,7 +43,18 @@ export const calculateTopPart = (
   const g = new THREE.Vector3(0, 0, totalLength);
   const h = new THREE.Vector3(width, 0, totalLength);
 
-  return { a, b, c, d, e, f, g, h };
+  const k = new THREE.Vector3(
+    0,
+    -bodyHeight,
+    totalLength + bodyHeight / Math.tan(rad(alpha))
+  );
+  const l = new THREE.Vector3(
+    0,
+    -bodyHeight,
+    bodyHeight / Math.tan(rad(alpha))
+  );
+
+  return { a, b, c, d, e, f, g, h, k, l };
 };
 
 export function computeVertices(
@@ -49,21 +62,38 @@ export function computeVertices(
   height: number,
   slantLength: number,
   width: number,
-  totalLength: number
+  totalLength: number,
+  bodyHeight: number,
+  alpha: number
 ) {
   let vertices = new Float32Array();
-  const { a, b, c, d, e, f, g, h } = calculateTopPart(
+  const { a, b, c, d, e, f, g, h, k, l } = calculateTopPart(
     sigma,
     height,
     slantLength,
     width,
-    totalLength
+    totalLength,
+    bodyHeight,
+    alpha
   );
 
   const face1 = vector3toFace(c, a, b, d);
   const face2 = vector3toFace(h, d, b, f);
   const face3 = vector3toFace(b, a, e, f);
   const face4 = vector3toFace(h, f, e, g);
-  vertices = new Float32Array([...face1, ...face2, ...face3, ...face4]);
+  const face5 = vector3toFace(d, h, k, l);
+  vertices = new Float32Array([
+    ...face1,
+    ...face2,
+    ...face3,
+    ...face4,
+    ...face5,
+    ...d.toArray(),
+    ...l.toArray(),
+    ...c.toArray(),
+    ...h.toArray(),
+    ...k.toArray(),
+    ...g.toArray(),
+  ]);
   return vertices;
 }
