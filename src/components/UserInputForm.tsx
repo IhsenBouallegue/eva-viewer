@@ -15,7 +15,6 @@ export function UserInputForm({
         defaultValue={45}
         placeholder="Sigma"
         label="Sigma"
-        required
         value={topPartParameters.sigma}
         onChange={(val: number) => {
           setTopPartParameters({ ...topPartParameters, sigma: val });
@@ -25,7 +24,6 @@ export function UserInputForm({
         defaultValue={20}
         placeholder="Height"
         label="Height"
-        required
         value={topPartParameters.height}
         onChange={(val: number) => {
           setTopPartParameters({ ...topPartParameters, height: val });
@@ -35,7 +33,6 @@ export function UserInputForm({
         defaultValue={20}
         placeholder="Slant Length"
         label="Slant Length"
-        required
         value={topPartParameters.slantLength}
         onChange={(val: number) => {
           setTopPartParameters({ ...topPartParameters, slantLength: val });
@@ -45,7 +42,6 @@ export function UserInputForm({
         defaultValue={20}
         placeholder="Width"
         label="Width"
-        required
         value={topPartParameters.width}
         onChange={(val: number) => {
           setTopPartParameters({ ...topPartParameters, width: val });
@@ -55,10 +51,27 @@ export function UserInputForm({
         defaultValue={20}
         placeholder="Total Length"
         label="Total Length"
-        required
         value={topPartParameters.totalLength}
         onChange={(val: number) => {
           setTopPartParameters({ ...topPartParameters, totalLength: val });
+        }}
+      />
+      <NumberInput
+        defaultValue={20}
+        placeholder="Alpha"
+        label="Alpha"
+        value={topPartParameters.alpha}
+        onChange={(val: number) => {
+          setTopPartParameters({ ...topPartParameters, alpha: val });
+        }}
+      />
+      <NumberInput
+        defaultValue={20}
+        placeholder="Body Height"
+        label="Body Height"
+        value={topPartParameters.bodyHeight}
+        onChange={(val: number) => {
+          setTopPartParameters({ ...topPartParameters, bodyHeight: val });
         }}
       />
     </>

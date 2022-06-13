@@ -52,7 +52,7 @@ export const TopPart3D = ({
     setLength(measures.z);
     setHeight(measures.y - height);
     return mergedGeometry;
-  }, [sigma, height, slantLength, width, totalLength]);
+  }, [sigma, height, slantLength, width, totalLength, alpha, bodyHeight]);
 
   return (
     <group position={position}>
