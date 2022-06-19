@@ -1,10 +1,12 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import * as THREE from "three";
-import { computeVertices } from "../utils/functions";
 import {
   mergeBufferGeometries,
   mergeVertices,
-} from "three/examples/jsm/utils/BufferGeometryUtils.js";
+} from "three/examples/jsm/utils/BufferGeometryUtils";
+
+import { computeVertices } from "../utils/functions";
+
 interface Props {
   setLength: any;
   setHeight: any;
@@ -18,7 +20,7 @@ interface Props {
   alpha: number;
 }
 
-export const TopPart3D = ({
+export function TopPart3D({
   setLength,
   setHeight,
   position,
@@ -29,36 +31,46 @@ export const TopPart3D = ({
   totalLength,
   bodyHeight,
   alpha,
-}: Props) => {
-  const measures = new THREE.Vector3();
-  let vertices = computeVertices(
-    sigma,
-    height,
-    slantLength,
-    width,
-    totalLength,
-    bodyHeight,
-    alpha
-  );
+}: Props) {
   const mergedGeometry = useMemo(() => {
+    const vertices = computeVertices(
+      sigma,
+      height,
+      slantLength,
+      width,
+      totalLength,
+      bodyHeight,
+      alpha
+    );
     const geo1 = new THREE.BufferGeometry();
     geo1.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
     const geo2 = geo1
       .clone()
       .applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
-    const mergedGeometry = mergeVertices(mergeBufferGeometries([geo1, geo2]));
-    mergedGeometry.computeBoundingBox();
-    mergedGeometry.boundingBox?.getSize(measures);
+    const result = mergeVertices(mergeBufferGeometries([geo1, geo2]));
+    result.computeBoundingBox();
+    const measures = new THREE.Vector3();
+    result.boundingBox?.getSize(measures);
     setLength(measures.z);
     setHeight(measures.y - height);
-    return mergedGeometry;
-  }, [sigma, height, slantLength, width, totalLength, alpha, bodyHeight]);
+    return result;
+  }, [
+    alpha,
+    bodyHeight,
+    height,
+    setHeight,
+    setLength,
+    sigma,
+    slantLength,
+    totalLength,
+    width,
+  ]);
 
   return (
     <group position={position}>
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
-          flatShading={true}
+          flatShading
           color="#646572"
           roughness={0.3}
           metalness={0.5}
@@ -67,6 +79,6 @@ export const TopPart3D = ({
       </mesh>
     </group>
   );
-};
+}
 
 export default TopPart3D;

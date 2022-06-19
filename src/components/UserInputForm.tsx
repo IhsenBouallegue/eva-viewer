@@ -77,3 +77,4 @@ export function UserInputForm({
     </>
   );
 }
+export default UserInputForm;

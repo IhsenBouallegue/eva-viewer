@@ -5,16 +5,14 @@ export const vector3toFace = (
   vectors2: THREE.Vector3,
   vectors3: THREE.Vector3,
   vectors4: THREE.Vector3
-) => {
-  return [
-    ...vectors1.toArray(),
-    ...vectors2.toArray(),
-    ...vectors3.toArray(),
-    ...vectors3.toArray(),
-    ...vectors4.toArray(),
-    ...vectors1.toArray(),
-  ];
-};
+) => [
+  ...vectors1.toArray(),
+  ...vectors2.toArray(),
+  ...vectors3.toArray(),
+  ...vectors3.toArray(),
+  ...vectors4.toArray(),
+  ...vectors1.toArray(),
+];
 
 export const calculateTopPart = (
   sigma: number,
@@ -25,9 +23,7 @@ export const calculateTopPart = (
   bodyHeight: number,
   alpha: number
 ) => {
-  const rad = (angleInDegrees: number) => {
-    return (angleInDegrees * Math.PI) / 180;
-  };
+  const rad = (angleInDegrees: number) => (angleInDegrees * Math.PI) / 180;
   const a = new THREE.Vector3(0, height, slantLength / Math.cos(rad(sigma)));
   const b = new THREE.Vector3(
     width - slantLength,
@@ -54,7 +50,18 @@ export const calculateTopPart = (
     bodyHeight / Math.tan(rad(alpha))
   );
 
-  return { a, b, c, d, e, f, g, h, k, l };
+  return {
+    a,
+    b,
+    c,
+    d,
+    e,
+    f,
+    g,
+    h,
+    k,
+    l,
+  };
 };
 
 export function computeVertices(
