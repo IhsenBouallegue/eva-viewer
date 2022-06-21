@@ -4,9 +4,9 @@ import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 
-import { TopPart3D } from "./components/TopPart3D";
+import { TopPart3D } from "./components/AirplaneMesh";
 import { UserInputForm } from "./components/UserInputForm";
-import type { BodyParameters } from "./types/Types";
+import type { BodyParameters, TailParameters } from "./types/Types";
 
 function App() {
   const [length, setLength] = useState(0);
@@ -20,8 +20,16 @@ function App() {
     bodyHeight: 50,
     alpha: 45,
   };
+  const defualtTailParameters: TailParameters = {
+    tailLength: 100,
+    tailWidth: 10,
+    tailHeight: 10,
+    alpha: 45,
+  };
   const [bodyParameters, setBodyParameters] = useState(defualtBodyParameters);
+  const [tailParameters, setTailParameters] = useState(defualtTailParameters);
   const [debouncedBodyParameters] = useDebouncedValue(bodyParameters, 200);
+  const [debouncedTailParameters] = useDebouncedValue(tailParameters, 200);
   return (
     <Box id="canvas-container" sx={{ height: "100vh", position: "relative" }}>
       <Canvas>
@@ -43,6 +51,8 @@ function App() {
         <UserInputForm
           setBodyParameters={setBodyParameters}
           bodyParameters={debouncedBodyParameters}
+          setTailParameters={setTailParameters}
+          tailParameters={debouncedTailParameters}
         />
       </Box>
     </Box>

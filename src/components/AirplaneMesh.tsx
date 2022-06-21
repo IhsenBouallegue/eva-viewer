@@ -6,12 +6,12 @@ import {
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
 import type { BodyParameters } from "../types/Types";
-import { computeVertices } from "../utils/functions";
+import { computeGeometry } from "../utils/functions";
 
 interface Props {
-  setLength: any;
-  setHeight: any;
-  position: any;
+  setLength: (val: number) => void;
+  setHeight: (val: number) => void;
+  position: number[];
 }
 
 export function TopPart3D({
@@ -27,7 +27,7 @@ export function TopPart3D({
   alpha,
 }: Props & BodyParameters) {
   const mergedGeometry = useMemo(() => {
-    const vertices = computeVertices(
+    const vertices = computeGeometry(
       sigma,
       height,
       slantLength,
@@ -61,7 +61,7 @@ export function TopPart3D({
   ]);
 
   return (
-    <group position={position}>
+    <group position={new THREE.Vector3(...position)}>
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading

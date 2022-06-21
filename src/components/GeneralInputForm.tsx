@@ -5,7 +5,7 @@ import type { BodyParameters } from "../types/Types";
 export function GeneralInputForm({
   setBodyParameters,
   ...bodyParameters
-}: { setBodyParameters: any } & BodyParameters) {
+}: { setBodyParameters: (val: BodyParameters) => void } & BodyParameters) {
   return (
     <NumberInput
       defaultValue={20}
