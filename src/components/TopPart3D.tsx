@@ -5,19 +5,13 @@ import {
   mergeVertices,
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
+import type { BodyParameters } from "../types/Types";
 import { computeVertices } from "../utils/functions";
 
 interface Props {
   setLength: any;
   setHeight: any;
   position: any;
-  sigma: number;
-  height: number;
-  slantLength: number;
-  width: number;
-  totalLength: number;
-  bodyHeight: number;
-  alpha: number;
 }
 
 export function TopPart3D({
@@ -31,7 +25,7 @@ export function TopPart3D({
   totalLength,
   bodyHeight,
   alpha,
-}: Props) {
+}: Props & BodyParameters) {
   const mergedGeometry = useMemo(() => {
     const vertices = computeVertices(
       sigma,
