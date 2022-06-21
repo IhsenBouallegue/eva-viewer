@@ -1,6 +1,8 @@
 import * as THREE from "three";
 
-export const vector3toFace = (
+import type { TailParameters } from "../types/Types";
+
+const vector3toFace = (
   vectors1: THREE.Vector3,
   vectors2: THREE.Vector3,
   vectors3: THREE.Vector3,
@@ -14,7 +16,7 @@ export const vector3toFace = (
   ...vectors1.toArray(),
 ];
 
-export const calculateTopPart = (
+const calculateVertices = (
   sigma: number,
   height: number,
   slantLength: number,
@@ -64,7 +66,40 @@ export const calculateTopPart = (
   };
 };
 
-export function computeVertices(
+export const calculateTailVertices = ({
+  tailHeight,
+  tailWidth,
+  tailLength,
+  alpha,
+}: TailParameters) => {
+  const rad = (angleInDegrees: number) => (angleInDegrees * Math.PI) / 180;
+
+  const m = new THREE.Vector3(0, 0, 0);
+  const n = new THREE.Vector3(tailWidth, 0, 0);
+  const o = new THREE.Vector3(
+    0,
+    -tailHeight,
+    tailHeight / Math.tan(rad(alpha))
+  );
+  const p = new THREE.Vector3(0, 0, tailLength);
+  const q = new THREE.Vector3(tailHeight / Math.tan(rad(alpha)), 0, tailLength);
+  const r = new THREE.Vector3(
+    0,
+    tailHeight / Math.tan(rad(alpha)),
+    tailLength - tailHeight / Math.tan(rad(alpha))
+  );
+
+  return {
+    m,
+    n,
+    o,
+    p,
+    q,
+    r,
+  };
+};
+
+export function computeGeometry(
   sigma: number,
   height: number,
   slantLength: number,
@@ -74,7 +109,7 @@ export function computeVertices(
   alpha: number
 ) {
   let vertices = new Float32Array();
-  const { a, b, c, d, e, f, g, h, k, l } = calculateTopPart(
+  const { a, b, c, d, e, f, g, h, k, l } = calculateVertices(
     sigma,
     height,
     slantLength,
