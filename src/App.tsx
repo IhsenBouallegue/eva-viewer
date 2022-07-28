@@ -15,7 +15,11 @@ function App() {
         <directionalLight position={[0, 300, 150]} />
         <directionalLight position={[0, -300, 150]} />
         <ambientLight intensity={0.05} />
-        <PerspectiveCamera makeDefault position={[0, 1000, 0]} far={10000} />
+        <PerspectiveCamera
+          makeDefault
+          position={[-800, 300, -800]}
+          far={10000}
+        />
         <OrbitControls />
         <gridHelper args={[1000, 100]} position={[0, 0, 0]} />
         <AirplaneMesh {...context} />
