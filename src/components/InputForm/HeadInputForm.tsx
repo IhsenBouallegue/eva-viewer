@@ -1,5 +1,5 @@
 import { NumberInput } from "@mantine/core";
-import { useEvaViewerContext } from "../../EvaViewerContext";
+import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
 export function HeadInputForm() {
   const { setParameters, sigma, width, height, slantLength, totalLength } =

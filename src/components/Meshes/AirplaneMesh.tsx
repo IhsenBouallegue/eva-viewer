@@ -6,7 +6,10 @@ import {
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
 import type { AirplaneParameters } from "../../types/Types";
-import { computeGeometry, computeTailGeometry } from "../../utils/functions";
+import {
+  computeBodyGeometry,
+  computeTailGeometry,
+} from "../../utils/computeGeometry";
 
 export function AirplaneMesh({
   sigma,
@@ -38,15 +41,15 @@ export function AirplaneMesh({
     return mergeVertices(mergeBufferGeometries([tail1, tail2]));
   }, [alpha, tailHeight, tailLength, tailWidth, totalLength]);
   const mergedGeometry = useMemo(() => {
-    const bodyVertices = computeGeometry(
+    const bodyVertices = computeBodyGeometry({
       sigma,
       height,
       slantLength,
       width,
       totalLength,
       bodyHeight,
-      alpha
-    );
+      alpha,
+    } as AirplaneParameters);
     const geo1 = new THREE.BufferGeometry();
     geo1.setAttribute("position", new THREE.BufferAttribute(bodyVertices, 3));
     const geo2 = geo1

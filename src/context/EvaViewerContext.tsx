@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { BodyParameters, TailParameters } from "./types/Types";
+import { BodyParameters, TailParameters } from "../types/Types";
 
 const defualtBodyParameters: BodyParameters = {
   sigma: 45,

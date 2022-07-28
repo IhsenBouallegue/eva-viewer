@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 
 import { AirplaneMesh } from "./components/Meshes/AirplaneMesh";
 import InputForm from "./components/InputForm";
-import { useEvaViewerContext } from "./EvaViewerContext";
+import { useEvaViewerContext } from "./context/EvaViewerContext";
 
 function App() {
   const context = useEvaViewerContext();
