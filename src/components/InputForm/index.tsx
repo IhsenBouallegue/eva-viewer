@@ -1,17 +1,9 @@
 import { Tabs } from "@mantine/core";
-import { BodyParameters, TailParameters } from "../../types/Types";
 
 import { BellyInputForm } from "./BellyInputForm";
 import { GeneralInputForm } from "./GeneralInputForm";
 import { HeadInputForm } from "./HeadInputForm";
 import { TailInputForm } from "./TailInputForm";
-
-interface Props {
-  bodyParameters: BodyParameters;
-  setBodyParameters: (val: BodyParameters) => void;
-  tailParameters: TailParameters;
-  setTailParameters: (val: TailParameters) => void;
-}
 
 export function InputForm() {
   return (
