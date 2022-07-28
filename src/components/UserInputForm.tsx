@@ -14,37 +14,20 @@ interface Props {
   setTailParameters: (val: TailParameters) => void;
 }
 
-export function UserInputForm({
-  bodyParameters,
-  setBodyParameters,
-  tailParameters,
-  setTailParameters,
-}: Props) {
+export function UserInputForm() {
   return (
     <Tabs>
       <Tabs.Tab label="General">
-        <GeneralInputForm
-          setBodyParameters={setBodyParameters}
-          {...bodyParameters}
-        />
+        <GeneralInputForm />
       </Tabs.Tab>
       <Tabs.Tab label="Head">
-        <HeadInputForm
-          setBodyParameters={setBodyParameters}
-          {...bodyParameters}
-        />
+        <HeadInputForm />
       </Tabs.Tab>
       <Tabs.Tab label="Belly">
-        <BellyInputForm
-          setBodyParameters={setBodyParameters}
-          {...bodyParameters}
-        />
+        <BellyInputForm />
       </Tabs.Tab>
       <Tabs.Tab label="Tail">
-        <TailInputForm
-          setTailParameters={setTailParameters}
-          {...tailParameters}
-        />
+        <TailInputForm />
       </Tabs.Tab>
     </Tabs>
   );

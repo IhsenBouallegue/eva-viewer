@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import type { TailParameters } from "../types/Types";
+import type { BodyParameters, TailParameters } from "../types/Types";
 
 const vector3toFace = (
   vectors1: THREE.Vector3,
@@ -71,22 +71,23 @@ export const calculateTailVertices = ({
   tailWidth,
   tailLength,
   alpha,
-}: TailParameters) => {
+  totalLength,
+}: TailParameters & BodyParameters) => {
   const rad = (angleInDegrees: number) => (angleInDegrees * Math.PI) / 180;
 
-  const m = new THREE.Vector3(0, 0, 0);
-  const n = new THREE.Vector3(tailWidth, 0, 0);
+  const m = new THREE.Vector3(0, 0, totalLength);
+  const n = new THREE.Vector3(tailWidth, 0, totalLength);
   const o = new THREE.Vector3(
     0,
     -tailHeight,
     tailHeight / Math.tan(rad(alpha))
   );
-  const p = new THREE.Vector3(0, 0, tailLength);
-  const q = new THREE.Vector3(tailHeight / Math.tan(rad(alpha)), 0, tailLength);
+  const p = new THREE.Vector3(0, 0, tailLength + totalLength);
+  const q = new THREE.Vector3(tailWidth, 0, tailLength + totalLength);
   const r = new THREE.Vector3(
     0,
-    tailHeight / Math.tan(rad(alpha)),
-    tailLength - tailHeight / Math.tan(rad(alpha))
+    -tailHeight,
+    tailLength - tailHeight / Math.tan(rad(alpha)) + totalLength
   );
 
   return {
@@ -98,6 +99,36 @@ export const calculateTailVertices = ({
     r,
   };
 };
+export function computeTailGeometry({
+  tailHeight,
+  tailWidth,
+  tailLength,
+  alpha,
+  totalLength,
+}: TailParameters & BodyParameters) {
+  let vertices = new Float32Array();
+  const { m, n, o, p, q, r } = calculateTailVertices({
+    alpha,
+    tailHeight,
+    tailWidth,
+    tailLength,
+    totalLength,
+  } as BodyParameters & TailParameters);
+  const face1 = vector3toFace(n, q, r, o);
+  const face2 = vector3toFace(m, p, q, n);
+
+  vertices = new Float32Array([
+    ...m.toArray(),
+    ...n.toArray(),
+    ...o.toArray(),
+    ...r.toArray(),
+    ...q.toArray(),
+    ...p.toArray(),
+    ...face1,
+    ...face2,
+  ]);
+  return vertices;
+}
 
 export function computeGeometry(
   sigma: number,

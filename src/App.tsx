@@ -1,35 +1,16 @@
 import { Box } from "@mantine/core";
-import { useDebouncedValue } from "@mantine/hooks";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 
 import { TopPart3D } from "./components/AirplaneMesh";
 import { UserInputForm } from "./components/UserInputForm";
-import type { BodyParameters, TailParameters } from "./types/Types";
+import { useEvaViewerContext } from "./EvaViewerContext";
 
 function App() {
-  const [length, setLength] = useState(0);
-  const [height, setHeight] = useState(0);
-  const defualtBodyParameters: BodyParameters = {
-    sigma: 45,
-    height: 20,
-    slantLength: 20,
-    width: 93,
-    totalLength: 700,
-    bodyHeight: 50,
-    alpha: 45,
-  };
-  const defualtTailParameters: TailParameters = {
-    tailLength: 100,
-    tailWidth: 10,
-    tailHeight: 10,
-    alpha: 45,
-  };
-  const [bodyParameters, setBodyParameters] = useState(defualtBodyParameters);
-  const [tailParameters, setTailParameters] = useState(defualtTailParameters);
-  const [debouncedBodyParameters] = useDebouncedValue(bodyParameters, 200);
-  const [debouncedTailParameters] = useDebouncedValue(tailParameters, 200);
+  const [posLength, setLength] = useState(0);
+  const [posHeight, setHeight] = useState(0);
+  const context = useEvaViewerContext();
   return (
     <Box id="canvas-container" sx={{ height: "100vh", position: "relative" }}>
       <Canvas>
@@ -40,20 +21,15 @@ function App() {
         <PerspectiveCamera makeDefault position={[0, 1000, 0]} far={10000} />
         <OrbitControls />
         <TopPart3D
-          position={[0, height, -length / 2]}
+          position={[0, posHeight, -posLength / 2]}
           setLength={setLength}
           setHeight={setHeight}
-          {...debouncedBodyParameters}
+          {...context}
         />
         <gridHelper args={[1000, 100]} position={[0, 0, 0]} />
       </Canvas>
       <Box sx={{ position: "absolute", left: "1em", top: "1em" }}>
-        <UserInputForm
-          setBodyParameters={setBodyParameters}
-          bodyParameters={debouncedBodyParameters}
-          setTailParameters={setTailParameters}
-          tailParameters={debouncedTailParameters}
-        />
+        <UserInputForm />
       </Box>
     </Box>
   );

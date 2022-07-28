@@ -1,12 +1,12 @@
-import { useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import * as THREE from "three";
 import {
   mergeBufferGeometries,
   mergeVertices,
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
-import type { BodyParameters } from "../types/Types";
-import { computeGeometry } from "../utils/functions";
+import type { BodyParameters, TailParameters } from "../types/Types";
+import { computeGeometry, computeTailGeometry } from "../utils/functions";
 
 interface Props {
   setLength: (val: number) => void;
@@ -22,12 +22,30 @@ export function TopPart3D({
   height,
   slantLength,
   width,
-  totalLength,
   bodyHeight,
   alpha,
-}: Props & BodyParameters) {
+  tailHeight,
+  tailLength,
+  tailWidth,
+  totalLength,
+}: Props & BodyParameters & TailParameters) {
+  const mergedTailGeometry = useMemo(() => {
+    const tailVertices = computeTailGeometry({
+      alpha,
+      tailHeight,
+      tailLength,
+      tailWidth,
+      totalLength,
+    } as BodyParameters & TailParameters);
+    const tail1 = new THREE.BufferGeometry();
+    tail1.setAttribute("position", new THREE.BufferAttribute(tailVertices, 3));
+    const tail2 = tail1
+      .clone()
+      .applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
+    return mergeVertices(mergeBufferGeometries([tail1, tail2]));
+  }, [alpha, tailHeight, tailLength, tailWidth, totalLength]);
   const mergedGeometry = useMemo(() => {
-    const vertices = computeGeometry(
+    const bodyVertices = computeGeometry(
       sigma,
       height,
       slantLength,
@@ -37,7 +55,7 @@ export function TopPart3D({
       alpha
     );
     const geo1 = new THREE.BufferGeometry();
-    geo1.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+    geo1.setAttribute("position", new THREE.BufferAttribute(bodyVertices, 3));
     const geo2 = geo1
       .clone()
       .applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
@@ -59,10 +77,18 @@ export function TopPart3D({
     totalLength,
     width,
   ]);
-
   return (
     <group position={new THREE.Vector3(...position)}>
       <mesh geometry={mergedGeometry}>
+        <meshStandardMaterial
+          flatShading
+          color="#646572"
+          roughness={0.3}
+          metalness={0.5}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      <mesh geometry={mergedTailGeometry}>
         <meshStandardMaterial
           flatShading
           color="#646572"

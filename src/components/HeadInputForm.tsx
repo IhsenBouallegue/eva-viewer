@@ -1,56 +1,56 @@
 import { NumberInput } from "@mantine/core";
+import { useEvaViewerContext } from "../EvaViewerContext";
 
 import type { BodyParameters } from "../types/Types";
 
-export function HeadInputForm({
-  setBodyParameters,
-  ...bodyParameters
-}: { setBodyParameters: (val: BodyParameters) => void } & BodyParameters) {
+export function HeadInputForm() {
+  const { setParameters, sigma, width, height, slantLength, totalLength } =
+    useEvaViewerContext();
   return (
     <>
       <NumberInput
         defaultValue={45}
         placeholder="Sigma"
         label="Sigma"
-        value={bodyParameters.sigma}
+        value={sigma}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, sigma: val });
+          setParameters({ sigma: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Width"
         label="Width"
-        value={bodyParameters.width}
+        value={width}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, width: val });
+          setParameters({ width: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Height"
         label="Height"
-        value={bodyParameters.height}
+        value={height}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, height: val });
+          setParameters({ height: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Slant Length"
         label="Slant Length"
-        value={bodyParameters.slantLength}
+        value={slantLength}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, slantLength: val });
+          setParameters({ slantLength: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Total Length"
         label="Total Length"
-        value={bodyParameters.totalLength}
+        value={totalLength}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, totalLength: val });
+          setParameters({ totalLength: val });
         }}
       />
     </>

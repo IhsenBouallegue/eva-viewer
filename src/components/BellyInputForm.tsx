@@ -1,47 +1,47 @@
 import { NumberInput } from "@mantine/core";
+import { useEvaViewerContext } from "../EvaViewerContext";
 
 import type { BodyParameters } from "../types/Types";
 
-export function BellyInputForm({
-  setBodyParameters,
-  ...bodyParameters
-}: { setBodyParameters: (val: BodyParameters) => void } & BodyParameters) {
+export function BellyInputForm() {
+  const { setParameters, alpha, width, totalLength, bodyHeight } =
+    useEvaViewerContext();
   return (
     <>
       <NumberInput
         defaultValue={20}
         placeholder="Alpha"
         label="Alpha"
-        value={bodyParameters.alpha}
+        value={alpha}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, alpha: val });
+          setParameters({ alpha: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Width"
         label="Width"
-        value={bodyParameters.width}
+        value={width}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, width: val });
+          setParameters({ width: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Total Length"
         label="Total Length"
-        value={bodyParameters.totalLength}
+        value={totalLength}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, totalLength: val });
+          setParameters({ totalLength: val });
         }}
       />
       <NumberInput
         defaultValue={20}
         placeholder="Body Height"
         label="Body Height"
-        value={bodyParameters.bodyHeight}
+        value={bodyHeight}
         onChange={(val: number) => {
-          setBodyParameters({ ...bodyParameters, bodyHeight: val });
+          setParameters({ bodyHeight: val });
         }}
       />
     </>

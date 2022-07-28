@@ -1,38 +1,38 @@
 import { NumberInput } from "@mantine/core";
+import { useEvaViewerContext } from "../EvaViewerContext";
 
 import type { TailParameters } from "../types/Types";
 
-export function TailInputForm({
-  setTailParameters,
-  ...tailParameters
-}: { setTailParameters: (val: TailParameters) => void } & TailParameters) {
+export function TailInputForm() {
+  const { setParameters, tailHeight, tailWidth, tailLength } =
+    useEvaViewerContext();
   return (
     <>
       <NumberInput
         defaultValue={45}
         placeholder="tailHeight"
         label="tailHeight"
-        value={tailParameters.tailHeight}
+        value={tailHeight}
         onChange={(val: number) => {
-          setTailParameters({ ...tailParameters, tailHeight: val });
+          setParameters({ tailHeight: val });
         }}
       />
       <NumberInput
         defaultValue={45}
         placeholder="tailWidth"
         label="tailWidth"
-        value={tailParameters.tailWidth}
+        value={tailWidth}
         onChange={(val: number) => {
-          setTailParameters({ ...tailParameters, tailWidth: val });
+          setParameters({ tailWidth: val });
         }}
       />
       <NumberInput
         defaultValue={45}
         placeholder="tailLength"
         label="tailLength"
-        value={tailParameters.tailLength}
+        value={tailLength}
         onChange={(val: number) => {
-          setTailParameters({ ...tailParameters, tailLength: val });
+          setParameters({ tailLength: val });
         }}
       />
     </>
