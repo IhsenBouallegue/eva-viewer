@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, Image, Text } from "@mantine/core";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 
@@ -26,6 +26,10 @@ function App() {
       </Canvas>
       <Box sx={{ position: "absolute", left: "1em", top: "1em" }}>
         <InputForm />
+      </Box>
+      <Box sx={{ position: "absolute", right: "1em", bottom: "1em" }}>
+        <Image width={150} src="./assets/logo/eva_logo.svg" />
+        <Text align="center">Version 0.1.0</Text>
       </Box>
     </Box>
   );
