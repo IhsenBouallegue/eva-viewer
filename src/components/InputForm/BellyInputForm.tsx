@@ -1,7 +1,5 @@
 import { NumberInput } from "@mantine/core";
-import { useEvaViewerContext } from "../EvaViewerContext";
-
-import type { BodyParameters } from "../types/Types";
+import { useEvaViewerContext } from "../../EvaViewerContext";
 
 export function BellyInputForm() {
   const { setParameters, alpha, width, totalLength, bodyHeight } =
@@ -9,7 +7,6 @@ export function BellyInputForm() {
   return (
     <>
       <NumberInput
-        defaultValue={20}
         placeholder="Alpha"
         label="Alpha"
         value={alpha}
@@ -18,7 +15,6 @@ export function BellyInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Width"
         label="Width"
         value={width}
@@ -27,7 +23,6 @@ export function BellyInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Total Length"
         label="Total Length"
         value={totalLength}
@@ -36,7 +31,6 @@ export function BellyInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Body Height"
         label="Body Height"
         value={bodyHeight}

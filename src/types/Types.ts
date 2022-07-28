@@ -21,3 +21,5 @@ export interface TailParameters {
   tailHeight: number;
   tailLength: number;
 }
+
+export interface AirplaneParameters extends BodyParameters, TailParameters {}

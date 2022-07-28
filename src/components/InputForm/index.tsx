@@ -1,6 +1,5 @@
 import { Tabs } from "@mantine/core";
-
-import type { BodyParameters, TailParameters } from "../types/Types";
+import { BodyParameters, TailParameters } from "../../types/Types";
 
 import { BellyInputForm } from "./BellyInputForm";
 import { GeneralInputForm } from "./GeneralInputForm";
@@ -14,7 +13,7 @@ interface Props {
   setTailParameters: (val: TailParameters) => void;
 }
 
-export function UserInputForm() {
+export function InputForm() {
   return (
     <Tabs>
       <Tabs.Tab label="General">
@@ -32,4 +31,4 @@ export function UserInputForm() {
     </Tabs>
   );
 }
-export default UserInputForm;
+export default InputForm;

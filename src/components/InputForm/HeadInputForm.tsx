@@ -1,7 +1,5 @@
 import { NumberInput } from "@mantine/core";
-import { useEvaViewerContext } from "../EvaViewerContext";
-
-import type { BodyParameters } from "../types/Types";
+import { useEvaViewerContext } from "../../EvaViewerContext";
 
 export function HeadInputForm() {
   const { setParameters, sigma, width, height, slantLength, totalLength } =
@@ -9,7 +7,6 @@ export function HeadInputForm() {
   return (
     <>
       <NumberInput
-        defaultValue={45}
         placeholder="Sigma"
         label="Sigma"
         value={sigma}
@@ -18,7 +15,6 @@ export function HeadInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Width"
         label="Width"
         value={width}
@@ -27,7 +23,6 @@ export function HeadInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Height"
         label="Height"
         value={height}
@@ -36,7 +31,6 @@ export function HeadInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Slant Length"
         label="Slant Length"
         value={slantLength}
@@ -45,7 +39,6 @@ export function HeadInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={20}
         placeholder="Total Length"
         label="Total Length"
         value={totalLength}

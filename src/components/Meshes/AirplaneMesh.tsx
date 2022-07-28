@@ -1,23 +1,14 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useMemo, useState } from "react";
 import * as THREE from "three";
 import {
   mergeBufferGeometries,
   mergeVertices,
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
-import type { BodyParameters, TailParameters } from "../types/Types";
-import { computeGeometry, computeTailGeometry } from "../utils/functions";
+import type { AirplaneParameters } from "../../types/Types";
+import { computeGeometry, computeTailGeometry } from "../../utils/functions";
 
-interface Props {
-  setLength: (val: number) => void;
-  setHeight: (val: number) => void;
-  position: number[];
-}
-
-export function TopPart3D({
-  setLength,
-  setHeight,
-  position,
+export function AirplaneMesh({
   sigma,
   height,
   slantLength,
@@ -28,7 +19,9 @@ export function TopPart3D({
   tailLength,
   tailWidth,
   totalLength,
-}: Props & BodyParameters & TailParameters) {
+}: AirplaneParameters) {
+  const [posLength, setLength] = useState(0);
+  const [posHeight, setHeight] = useState(0);
   const mergedTailGeometry = useMemo(() => {
     const tailVertices = computeTailGeometry({
       alpha,
@@ -36,7 +29,7 @@ export function TopPart3D({
       tailLength,
       tailWidth,
       totalLength,
-    } as BodyParameters & TailParameters);
+    } as AirplaneParameters);
     const tail1 = new THREE.BufferGeometry();
     tail1.setAttribute("position", new THREE.BufferAttribute(tailVertices, 3));
     const tail2 = tail1
@@ -78,7 +71,7 @@ export function TopPart3D({
     width,
   ]);
   return (
-    <group position={new THREE.Vector3(...position)}>
+    <group position={[0, posHeight, -posLength / 2]}>
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading
@@ -101,4 +94,4 @@ export function TopPart3D({
   );
 }
 
-export default TopPart3D;
+export default AirplaneMesh;

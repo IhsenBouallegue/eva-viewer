@@ -1,13 +1,10 @@
 import { NumberInput } from "@mantine/core";
-import { useEvaViewerContext } from "../EvaViewerContext";
-
-import type { BodyParameters } from "../types/Types";
+import { useEvaViewerContext } from "../../EvaViewerContext";
 
 export function GeneralInputForm() {
   const { setParameters, alpha } = useEvaViewerContext();
   return (
     <NumberInput
-      defaultValue={20}
       placeholder="Alpha"
       label="Alpha"
       value={alpha}

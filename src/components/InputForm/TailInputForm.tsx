@@ -1,7 +1,5 @@
 import { NumberInput } from "@mantine/core";
-import { useEvaViewerContext } from "../EvaViewerContext";
-
-import type { TailParameters } from "../types/Types";
+import { useEvaViewerContext } from "../../EvaViewerContext";
 
 export function TailInputForm() {
   const { setParameters, tailHeight, tailWidth, tailLength } =
@@ -9,7 +7,6 @@ export function TailInputForm() {
   return (
     <>
       <NumberInput
-        defaultValue={45}
         placeholder="tailHeight"
         label="tailHeight"
         value={tailHeight}
@@ -18,7 +15,6 @@ export function TailInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={45}
         placeholder="tailWidth"
         label="tailWidth"
         value={tailWidth}
@@ -27,7 +23,6 @@ export function TailInputForm() {
         }}
       />
       <NumberInput
-        defaultValue={45}
         placeholder="tailLength"
         label="tailLength"
         value={tailLength}
