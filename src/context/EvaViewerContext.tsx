@@ -1,26 +1,8 @@
 import React, { useContext, useState } from "react";
-
-import { BodyParameters, TailParameters } from "../types/Types";
-
-const defualtBodyParameters: BodyParameters = {
-  sigma: 45,
-  height: 20,
-  slantLength: 20,
-  width: 93,
-  totalLength: 700,
-  bodyHeight: 50,
-  alpha: 45,
-};
-const defualtTailParameters: TailParameters = {
-  tailLength: 100,
-  tailWidth: 10,
-  tailHeight: 10,
-  alpha: 45,
-};
+import defaultParameters from "./defaultParameters";
 
 const EvaViewerContext = React.createContext({
-  ...defualtBodyParameters,
-  ...defualtTailParameters,
+  ...defaultParameters,
   setParameters: (parameters: any) => {},
 });
 
@@ -41,8 +23,7 @@ export const EvaViewerContextProvider = ({
   };
 
   const initState = {
-    ...defualtBodyParameters,
-    ...defualtTailParameters,
+    ...defaultParameters,
     setParameters: setParameters,
   };
 
