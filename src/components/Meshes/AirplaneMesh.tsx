@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import {
   mergeBufferGeometries,
@@ -10,6 +10,7 @@ import {
   computeBodyGeometry,
   computeTailGeometry,
 } from "../../utils/computeGeometry";
+import { WingMesh } from "./WingMesh";
 
 export function AirplaneMesh({
   sigma,
@@ -25,6 +26,8 @@ export function AirplaneMesh({
 }: AirplaneParameters) {
   const [posLength, setLength] = useState(0);
   const [posHeight, setHeight] = useState(0);
+  let groupMesh = useRef(null);
+
   const mergedTailGeometry = useMemo(() => {
     const tailVertices = computeTailGeometry({
       alpha,
@@ -55,13 +58,7 @@ export function AirplaneMesh({
     const geo2 = geo1
       .clone()
       .applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
-    const result = mergeVertices(mergeBufferGeometries([geo1, geo2]));
-    result.computeBoundingBox();
-    const measures = new THREE.Vector3();
-    result.boundingBox?.getSize(measures);
-    setLength(measures.z);
-    setHeight(measures.y - height);
-    return result;
+    return mergeVertices(mergeBufferGeometries([geo1, geo2]));
   }, [
     alpha,
     bodyHeight,
@@ -73,8 +70,16 @@ export function AirplaneMesh({
     totalLength,
     width,
   ]);
+  useEffect(() => {
+    const aabb = new THREE.Box3();
+    aabb.setFromObject(groupMesh.current!);
+    const boundingBox = new THREE.Vector3();
+    aabb.getSize(boundingBox);
+    setLength(boundingBox.z);
+  }, [mergedGeometry, mergedTailGeometry]);
+
   return (
-    <group position={[0, posHeight, -posLength / 2]}>
+    <group ref={groupMesh} position={[0, bodyHeight, -posLength / 2]}>
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading
@@ -93,6 +98,7 @@ export function AirplaneMesh({
           side={THREE.DoubleSide}
         />
       </mesh>
+      <WingMesh />
     </group>
   );
 }
