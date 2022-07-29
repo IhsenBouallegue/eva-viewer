@@ -10,6 +10,7 @@ import {
   computeBodyGeometry,
   computeTailGeometry,
 } from "../../utils/computeGeometry";
+
 import { WingMesh } from "./WingMesh";
 
 export function AirplaneMesh({
@@ -25,8 +26,7 @@ export function AirplaneMesh({
   totalLength,
 }: AirplaneParameters) {
   const [posLength, setLength] = useState(0);
-  const [posHeight, setHeight] = useState(0);
-  let groupMesh = useRef(null);
+  const groupMesh = useRef(null);
 
   const mergedTailGeometry = useMemo(() => {
     const tailVertices = computeTailGeometry({
@@ -59,19 +59,10 @@ export function AirplaneMesh({
       .clone()
       .applyMatrix4(new THREE.Matrix4().makeScale(-1, 1, 1));
     return mergeVertices(mergeBufferGeometries([geo1, geo2]));
-  }, [
-    alpha,
-    bodyHeight,
-    height,
-    setHeight,
-    setLength,
-    sigma,
-    slantLength,
-    totalLength,
-    width,
-  ]);
+  }, [alpha, bodyHeight, height, sigma, slantLength, totalLength, width]);
   useEffect(() => {
     const aabb = new THREE.Box3();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     aabb.setFromObject(groupMesh.current!);
     const boundingBox = new THREE.Vector3();
     aabb.getSize(boundingBox);

@@ -1,5 +1,6 @@
-import { AirplaneParameters } from "../types/Types";
 import * as THREE from "three";
+
+import type { AirplaneParameters } from "../types/Types";
 
 const rad = (angleInDegrees: number) => (angleInDegrees * Math.PI) / 180;
 

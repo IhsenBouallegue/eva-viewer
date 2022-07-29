@@ -1,14 +1,8 @@
-import { useMemo } from "react";
 import * as THREE from "three";
 import { Shape } from "three";
 
 export function WingMesh() {
-  const length = 50;
-  const width = 30;
-  const deg = 10;
   const thickness = 400;
-  const rad = (deg * Math.PI) / 180;
-  const offset = Math.min(Math.tan(rad) * width, length / 2);
   const shape = new Shape();
 
   shape.moveTo(200.0, 0.68);
@@ -69,3 +63,5 @@ export function WingMesh() {
     </mesh>
   );
 }
+
+export default WingMesh;

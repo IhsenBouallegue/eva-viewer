@@ -1,6 +1,7 @@
-import { AirplaneParameters } from "../types/Types";
-import { vector3toFace } from "./helpers";
+import type { AirplaneParameters } from "../types/Types";
+
 import { computeBodyVertices, computeTailVertices } from "./computeVertices";
+import { vector3toFace } from "./helpers";
 
 export function computeTailGeometry({
   tailHeight,

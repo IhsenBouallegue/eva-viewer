@@ -2,8 +2,8 @@ import { Box, Image, Text } from "@mantine/core";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 
+import { InputForm } from "./components/InputForm";
 import { AirplaneMesh } from "./components/Meshes/AirplaneMesh";
-import InputForm from "./components/InputForm";
 import { useEvaViewerContext } from "./context/EvaViewerContext";
 
 function App() {
