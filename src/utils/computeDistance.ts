@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 import type { AirplaneParameters } from "../types/Types";
 
-import { computeBodyVertices } from "./computeVertices";
+import { computeBodyVertices, computeTailVertices } from "./computeVertices";
 
 export interface Distance {
   point1: string;
@@ -66,6 +66,32 @@ export function computeDistance({
   ];
 }
 
+export function computeTailDistance({
+  tailHeight,
+  tailWidth,
+  tailLength,
+  alpha,
+  totalLength,
+}: AirplaneParameters): Distance[] {
+  const { m, n, o, p, q, r } = computeTailVertices({
+    alpha,
+    tailHeight,
+    tailWidth,
+    tailLength,
+    totalLength,
+  } as AirplaneParameters);
+
+  return [
+    calculateDistance(m, n, "m", "n"),
+    calculateDistance(m, o, "m", "o"),
+    calculateDistance(m, p, "m", "p"),
+    calculateDistance(p, q, "p", "q"),
+    calculateDistance(p, r, "p", "r"),
+    calculateDistance(r, o, "r", "o"),
+    calculateDistance(n, o, "n", "o"),
+    calculateDistance(q, r, "q", "r"),
+  ];
+}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getVerteciesMap({
   sigma,
