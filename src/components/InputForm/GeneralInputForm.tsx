@@ -1,28 +1,12 @@
-import { ColorInput, InputWrapper, Slider, Switch } from "@mantine/core";
+import { ColorInput, Switch } from "@mantine/core";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
 export function GeneralInputForm() {
-  const {
-    setParameters,
-    alpha,
-    showBodyDistances,
-    showTailDistances,
-    airplaneColor,
-  } = useEvaViewerContext();
+  const { setParameters, showBodyDistances, showTailDistances, airplaneColor } =
+    useEvaViewerContext();
   return (
     <>
-      <InputWrapper label="Alpha">
-        <Slider
-          placeholder="Alpha"
-          value={alpha}
-          min={20}
-          max={90}
-          onChange={(val: number) => {
-            setParameters({ alpha: val });
-          }}
-        />
-      </InputWrapper>
       <ColorInput
         placeholder="Pick color"
         label="Airplane Color"
