@@ -23,3 +23,9 @@ export interface TailParameters {
 }
 
 export interface AirplaneParameters extends BodyParameters, TailParameters {}
+
+export interface WingParameters {
+  wingLengthScale: number;
+  wingHeightScale: number;
+  wingSpan: number;
+}

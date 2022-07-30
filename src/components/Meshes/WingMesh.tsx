@@ -1,7 +1,13 @@
 import * as THREE from "three";
 import { Shape } from "three";
 
-export function WingMesh() {
+import type { WingParameters } from "../../types/Types";
+
+export function WingMesh({
+  wingLengthScale,
+  wingHeightScale,
+  wingSpan,
+}: WingParameters) {
   const thickness = 400;
   const shape = new Shape();
 
@@ -48,7 +54,11 @@ export function WingMesh() {
   };
 
   return (
-    <mesh position={[thickness, 0, 200]} rotation={[0, -Math.PI / 2, 0]}>
+    <mesh
+      position={[thickness, 0, 200]}
+      rotation={[0, -Math.PI / 2, 0]}
+      scale={[wingLengthScale, wingHeightScale, 1]}
+    >
       <extrudeBufferGeometry
         attach="geometry"
         args={[shape, extrudeSettings]}
