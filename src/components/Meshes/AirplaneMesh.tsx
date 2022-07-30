@@ -6,7 +6,7 @@ import {
   mergeVertices,
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
-import type { AirplaneParameters } from "../../types/Types";
+import type { AirplaneParameters, Parameters } from "../../types/Types";
 import type { Distance } from "../../utils/computeDistance";
 import { computeDistance } from "../../utils/computeDistance";
 import {
@@ -27,7 +27,12 @@ export function AirplaneMesh({
   tailLength,
   tailWidth,
   totalLength,
-}: AirplaneParameters) {
+  showBodyDistances,
+  airplaneColor,
+  wingLengthScale,
+  wingHeightScale,
+  wingSpan,
+}: Parameters) {
   const [posLength, setLength] = useState(0);
   const groupMesh = useRef(null);
 
@@ -86,44 +91,44 @@ export function AirplaneMesh({
 
   return (
     <group ref={groupMesh} position={[0, bodyHeight, -posLength / 2]}>
-      {distances.map((distance) => (
-        <Billboard
-          key={`${distance.point1 + distance.point2}:${distance.distance}`}
-          follow
-          position={distance.position}
-        >
-          <Text3D fontSize={10} color="black" renderOrder={-999}>
-            {`${distance.point1 + distance.point2}: ${distance.distance}`}
-            <meshBasicMaterial depthTest={false} />
-          </Text3D>
-        </Billboard>
-      ))}
-      <Text3D fontSize={10} position={[0, 0, 0]} color="black">
-        C
-      </Text3D>
-      <Text3D fontSize={10} position={[0, -100, 0]} color="black">
-        D
-      </Text3D>
+      {showBodyDistances &&
+        distances.map((distance) => (
+          <Billboard
+            key={`${distance.point1 + distance.point2}:${distance.distance}`}
+            follow
+            position={distance.position}
+          >
+            <Text3D fontSize={10} color="black" renderOrder={-999}>
+              {`${distance.point1 + distance.point2}: ${distance.distance}`}
+              <meshBasicMaterial depthTest={false} />
+            </Text3D>
+          </Billboard>
+        ))}
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading
-          color="#646572"
+          color={airplaneColor}
           roughness={0.3}
           metalness={0.5}
           side={THREE.DoubleSide}
         />
-        <Edges scale={1} color="white" />
+        {showBodyDistances && <Edges scale={1} color="white" />}
       </mesh>
       <mesh geometry={mergedTailGeometry}>
         <meshStandardMaterial
           flatShading
-          color="#646572"
+          color={airplaneColor}
           roughness={0.3}
           metalness={0.5}
           side={THREE.DoubleSide}
         />
       </mesh>
-      <WingMesh wingLengthScale={0.7} wingHeightScale={0.8} wingSpan={700} />
+      <WingMesh
+        wingLengthScale={wingLengthScale}
+        wingHeightScale={wingHeightScale}
+        wingSpan={wingSpan}
+        airplaneColor={airplaneColor}
+      />
     </group>
   );
 }

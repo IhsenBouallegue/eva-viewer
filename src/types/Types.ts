@@ -6,6 +6,12 @@ export interface HeadParameters {
   totalLength: number;
 }
 
+export interface MiscParameters {
+  showBodyDistances: boolean;
+  showTailDistances: boolean;
+  airplaneColor: string;
+}
+
 export interface BellyParameters {
   alpha: number;
   width: number;
@@ -21,11 +27,15 @@ export interface TailParameters {
   tailHeight: number;
   tailLength: number;
 }
-
-export interface AirplaneParameters extends BodyParameters, TailParameters {}
-
 export interface WingParameters {
   wingLengthScale: number;
   wingHeightScale: number;
   wingSpan: number;
 }
+
+export interface AirplaneParameters
+  extends BodyParameters,
+    TailParameters,
+    WingParameters {}
+
+export interface Parameters extends AirplaneParameters, MiscParameters {}

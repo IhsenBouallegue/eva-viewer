@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
+
+import type { Parameters } from "../types/Types";
+
 import defaultParameters from "./defaultParameters";
 
 const EvaViewerContext = React.createContext({
   ...defaultParameters,
-  setParameters: (parameters: any) => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setParameters: (parameters: Partial<Parameters>) => {},
 });
 
 export const useEvaViewerContext = () => {
@@ -15,16 +19,16 @@ export const EvaViewerContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const setParameters = (parameters: any) => {
+  const setParameters = (parameters: Partial<Parameters>) => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     setState((prevState) => ({
       ...prevState,
       ...parameters,
     }));
   };
-
   const initState = {
     ...defaultParameters,
-    setParameters: setParameters,
+    setParameters,
   };
 
   const [state, setState] = useState(initState);

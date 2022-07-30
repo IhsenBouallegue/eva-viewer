@@ -22,7 +22,6 @@ function App() {
         />
         <OrbitControls />
         <gridHelper args={[1000, 100]} position={[0, 0, 0]} />
-
         <AirplaneMesh {...context} />
       </Canvas>
       <Box sx={{ position: "absolute", left: "1em", top: "1em" }}>

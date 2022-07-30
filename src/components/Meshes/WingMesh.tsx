@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { Shape } from "three";
 
-import type { WingParameters } from "../../types/Types";
+import type { Parameters } from "../../types/Types";
 
 export function WingMesh({
-  wingLengthScale,
-  wingHeightScale,
-  wingSpan,
-}: WingParameters) {
+  wingLengthScale = 0,
+  wingHeightScale = 0,
+  wingSpan = 0,
+  airplaneColor,
+}: Partial<Parameters>) {
   const shape = new Shape();
 
   shape.moveTo(200.0, 0.68);
@@ -64,7 +65,7 @@ export function WingMesh({
       />
       <meshStandardMaterial
         flatShading
-        color="#646572"
+        color={airplaneColor}
         roughness={0.3}
         metalness={0.5}
         side={THREE.DoubleSide}

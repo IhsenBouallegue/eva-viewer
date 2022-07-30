@@ -1,7 +1,9 @@
-import {
-  AirplaneParameters,
+import type {
   BodyParameters,
+  MiscParameters,
+  Parameters,
   TailParameters,
+  WingParameters,
 } from "../types/Types";
 
 const defualtBodyParameters: BodyParameters = {
@@ -20,7 +22,21 @@ const defualtTailParameters: TailParameters = {
   alpha: 45,
 };
 
+const defaultWingParameters: WingParameters = {
+  wingLengthScale: 0.8,
+  wingHeightScale: 0.8,
+  wingSpan: 700,
+};
+
+const defaultMiscParameters: MiscParameters = {
+  showBodyDistances: false,
+  showTailDistances: false,
+  airplaneColor: "#646572",
+};
+
 export default {
+  ...defaultMiscParameters,
   ...defualtBodyParameters,
   ...defualtTailParameters,
-} as AirplaneParameters;
+  ...defaultWingParameters,
+} as Parameters;
