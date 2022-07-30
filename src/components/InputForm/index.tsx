@@ -4,6 +4,7 @@ import { BellyInputForm } from "./BellyInputForm";
 import { GeneralInputForm } from "./GeneralInputForm";
 import { HeadInputForm } from "./HeadInputForm";
 import { TailInputForm } from "./TailInputForm";
+import { WingInputForm } from "./WingInputForm";
 
 export function InputForm() {
   return (
@@ -19,6 +20,9 @@ export function InputForm() {
       </Tabs.Tab>
       <Tabs.Tab label="Tail">
         <TailInputForm />
+      </Tabs.Tab>
+      <Tabs.Tab label="Wing">
+        <WingInputForm />
       </Tabs.Tab>
     </Tabs>
   );

@@ -98,8 +98,10 @@ export function AirplaneMesh({
             follow
             position={distance.position}
           >
-            <Text3D fontSize={10} color="black" renderOrder={-999}>
-              {`${distance.point1 + distance.point2}: ${distance.distance}`}
+            <Text3D fontSize={8} color="black" renderOrder={-999}>
+              {`${
+                distance.point1.toUpperCase() + distance.point2.toUpperCase()
+              }: ${distance.distance}`}
               <meshBasicMaterial depthTest={false} />
             </Text3D>
           </Billboard>
