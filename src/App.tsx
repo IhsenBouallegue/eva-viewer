@@ -67,7 +67,7 @@ function App() {
           opacity={0.5}
           far={100}
         />
-        <Environment preset="night" />
+        <Environment preset="warehouse" />
       </Canvas>
       <Box sx={{ position: "absolute", left: "1em", top: "1em" }}>
         <InputForm />
