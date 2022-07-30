@@ -1,4 +1,4 @@
-import { Box, Image, Text } from "@mantine/core";
+import { Anchor, Box, Image, Text } from "@mantine/core";
 import {
   ContactShadows,
   Environment,
@@ -70,11 +70,26 @@ function App() {
         <Environment preset="warehouse" />
       </Canvas>
       <Box sx={{ position: "absolute", left: "1em", top: "1em" }}>
+        <div
+          style={{
+            width: 150,
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginBottom: "1em",
+          }}
+        >
+          <Image src="./assets/logo/eva_logo.svg" />
+        </div>
         <InputForm />
       </Box>
       <Box sx={{ position: "absolute", right: "1em", bottom: "1em" }}>
-        <Image width={150} src="./assets/logo/eva_logo.svg" />
-        <Text align="center">Version 0.1.0</Text>
+        <Text align="center">Eva Viewer Version 0.1.0</Text>
+        <Text align="center">
+          Author:{" "}
+          <Anchor href="https://ihsen.me/" target="_blank">
+            Ihsen Bouallegue
+          </Anchor>
+        </Text>
       </Box>
     </Box>
   );

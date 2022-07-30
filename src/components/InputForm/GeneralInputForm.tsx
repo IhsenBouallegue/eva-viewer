@@ -8,6 +8,7 @@ export function GeneralInputForm() {
   return (
     <>
       <ColorInput
+        sx={{ width: "16em" }}
         placeholder="Pick color"
         label="Airplane Color"
         value={airplaneColor}
