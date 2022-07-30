@@ -1,36 +1,42 @@
-import { NumberInput } from "@mantine/core";
+import { InputWrapper, Slider } from "@mantine/core";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
 export function WingInputForm() {
-  const { setParameters, wingLengthScale, wingHeightScale, wingSpan } =
+  const { setParameters, wingLength, wingHeight, wingSpan, height } =
     useEvaViewerContext();
   return (
     <>
-      <NumberInput
-        placeholder="Wing Length Scale"
-        label="Wing Length Scale"
-        value={wingLengthScale}
-        onChange={(val: number) => {
-          setParameters({ wingLengthScale: val });
-        }}
-      />
-      <NumberInput
-        placeholder="Wing Height Scale"
-        label="Wing Height Scale"
-        value={wingHeightScale}
-        onChange={(val: number) => {
-          setParameters({ wingHeightScale: val });
-        }}
-      />
-      <NumberInput
-        placeholder="Wing Span"
-        label="Wing Span"
-        value={wingSpan}
-        onChange={(val: number) => {
-          setParameters({ wingSpan: val });
-        }}
-      />
+      <InputWrapper label="Wing Length">
+        <Slider
+          min={100}
+          max={200}
+          value={wingLength}
+          onChange={(val: number) => {
+            setParameters({ wingLength: val });
+          }}
+        />
+      </InputWrapper>
+      <InputWrapper label="Wing Height">
+        <Slider
+          min={10}
+          max={height - 1}
+          value={wingHeight}
+          onChange={(val: number) => {
+            setParameters({ wingHeight: val });
+          }}
+        />
+      </InputWrapper>
+      <InputWrapper label="Wing Span">
+        <Slider
+          min={500}
+          max={1000}
+          value={wingSpan}
+          onChange={(val: number) => {
+            setParameters({ wingSpan: val });
+          }}
+        />
+      </InputWrapper>
     </>
   );
 }

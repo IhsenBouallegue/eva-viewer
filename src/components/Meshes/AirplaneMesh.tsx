@@ -34,8 +34,8 @@ export function AirplaneMesh({
   showBodyDistances,
   showTailDistances,
   airplaneColor,
-  wingLengthScale,
-  wingHeightScale,
+  wingLength,
+  wingHeight,
   wingSpan,
 }: Parameters) {
   const [posLength, setLength] = useState(0);
@@ -134,8 +134,8 @@ export function AirplaneMesh({
         {showTailDistances && <Edges scale={1} color="white" />}
       </mesh>
       <WingMesh
-        wingLengthScale={wingLengthScale}
-        wingHeightScale={wingHeightScale}
+        wingLength={wingLength}
+        wingHeight={wingHeight}
         wingSpan={wingSpan}
         airplaneColor={airplaneColor}
       />

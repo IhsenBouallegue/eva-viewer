@@ -23,8 +23,8 @@ const defualtTailParameters: TailParameters = {
 };
 
 const defaultWingParameters: WingParameters = {
-  wingLengthScale: 0.8,
-  wingHeightScale: 0.8,
+  wingLength: 160,
+  wingHeight: 19,
   wingSpan: 700,
 };
 

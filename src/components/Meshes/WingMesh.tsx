@@ -4,8 +4,8 @@ import { Shape } from "three";
 import type { Parameters } from "../../types/Types";
 
 export function WingMesh({
-  wingLengthScale = 0,
-  wingHeightScale = 0,
+  wingLength = 0,
+  wingHeight = 0,
   wingSpan = 0,
   airplaneColor,
 }: Partial<Parameters>) {
@@ -57,7 +57,7 @@ export function WingMesh({
     <mesh
       position={[wingSpan / 2, 0, 200]}
       rotation={[0, -Math.PI / 2, 0]}
-      scale={[wingLengthScale, wingHeightScale, 1]}
+      scale={[wingLength / 200, wingHeight / 22.48, 1]}
     >
       <extrudeBufferGeometry
         attach="geometry"

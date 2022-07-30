@@ -28,8 +28,8 @@ export interface TailParameters {
   tailLength: number;
 }
 export interface WingParameters {
-  wingLengthScale: number;
-  wingHeightScale: number;
+  wingLength: number;
+  wingHeight: number;
   wingSpan: number;
 }
 
