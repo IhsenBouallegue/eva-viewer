@@ -1,3 +1,4 @@
+import { Billboard, Edges, Text as Text3D } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import {
@@ -6,6 +7,8 @@ import {
 } from "three/examples/jsm/utils/BufferGeometryUtils";
 
 import type { AirplaneParameters } from "../../types/Types";
+import type { Distance } from "../../utils/computeDistance";
+import { computeDistance } from "../../utils/computeDistance";
 import {
   computeBodyGeometry,
   computeTailGeometry,
@@ -69,8 +72,38 @@ export function AirplaneMesh({
     setLength(boundingBox.z);
   }, [mergedGeometry, mergedTailGeometry]);
 
+  const distances: Distance[] = useMemo(() => {
+    return computeDistance({
+      sigma,
+      height,
+      slantLength,
+      width,
+      totalLength,
+      bodyHeight,
+      alpha,
+    } as AirplaneParameters);
+  }, [alpha, bodyHeight, height, sigma, slantLength, totalLength, width]);
+
   return (
     <group ref={groupMesh} position={[0, bodyHeight, -posLength / 2]}>
+      {distances.map((distance) => (
+        <Billboard
+          key={`${distance.point1 + distance.point2}:${distance.distance}`}
+          follow
+          position={distance.position}
+        >
+          <Text3D fontSize={10} color="black" renderOrder={-999}>
+            {`${distance.point1 + distance.point2}: ${distance.distance}`}
+            <meshBasicMaterial depthTest={false} />
+          </Text3D>
+        </Billboard>
+      ))}
+      <Text3D fontSize={10} position={[0, 0, 0]} color="black">
+        C
+      </Text3D>
+      <Text3D fontSize={10} position={[0, -100, 0]} color="black">
+        D
+      </Text3D>
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading
@@ -79,6 +112,7 @@ export function AirplaneMesh({
           metalness={0.5}
           side={THREE.DoubleSide}
         />
+        <Edges scale={1} color="white" />
       </mesh>
       <mesh geometry={mergedTailGeometry}>
         <meshStandardMaterial
@@ -89,7 +123,7 @@ export function AirplaneMesh({
           side={THREE.DoubleSide}
         />
       </mesh>
-      <WingMesh />
+      <WingMesh wingLengthScale={0.7} wingHeightScale={0.8} wingSpan={700} />
     </group>
   );
 }

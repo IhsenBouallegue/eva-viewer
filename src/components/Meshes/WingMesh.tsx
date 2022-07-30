@@ -8,7 +8,6 @@ export function WingMesh({
   wingHeightScale,
   wingSpan,
 }: WingParameters) {
-  const thickness = 400;
   const shape = new Shape();
 
   shape.moveTo(200.0, 0.68);
@@ -49,13 +48,13 @@ export function WingMesh({
   const extrudeSettings = {
     curveSegments: 1,
     steps: 1,
-    depth: 2 * thickness,
+    depth: wingSpan,
     bevelEnabled: false,
   };
 
   return (
     <mesh
-      position={[thickness, 0, 200]}
+      position={[wingSpan / 2, 0, 200]}
       rotation={[0, -Math.PI / 2, 0]}
       scale={[wingLengthScale, wingHeightScale, 1]}
     >

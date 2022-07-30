@@ -10,7 +10,6 @@ export function computeTailGeometry({
   alpha,
   totalLength,
 }: AirplaneParameters) {
-  let vertices = new Float32Array();
   const { m, n, o, p, q, r } = computeTailVertices({
     alpha,
     tailHeight,
@@ -18,20 +17,17 @@ export function computeTailGeometry({
     tailLength,
     totalLength,
   } as AirplaneParameters);
-  const face1 = vector3toFace(n, q, r, o);
-  const face2 = vector3toFace(m, p, q, n);
 
-  vertices = new Float32Array([
+  return new Float32Array([
     ...m.toArray(),
     ...n.toArray(),
     ...o.toArray(),
     ...r.toArray(),
     ...q.toArray(),
     ...p.toArray(),
-    ...face1,
-    ...face2,
+    ...vector3toFace(n, q, r, o),
+    ...vector3toFace(m, p, q, n),
   ]);
-  return vertices;
 }
 
 export function computeBodyGeometry({
@@ -43,7 +39,6 @@ export function computeBodyGeometry({
   bodyHeight,
   alpha,
 }: AirplaneParameters) {
-  let vertices = new Float32Array();
   const { a, b, c, d, e, f, g, h, k, l } = computeBodyVertices({
     sigma,
     height,
@@ -54,17 +49,12 @@ export function computeBodyGeometry({
     alpha,
   } as AirplaneParameters);
 
-  const face1 = vector3toFace(c, a, b, d);
-  const face2 = vector3toFace(h, d, b, f);
-  const face3 = vector3toFace(b, a, e, f);
-  const face4 = vector3toFace(h, f, e, g);
-  const face5 = vector3toFace(d, h, k, l);
-  vertices = new Float32Array([
-    ...face1,
-    ...face2,
-    ...face3,
-    ...face4,
-    ...face5,
+  return new Float32Array([
+    ...vector3toFace(c, a, b, d),
+    ...vector3toFace(h, d, b, f),
+    ...vector3toFace(b, a, e, f),
+    ...vector3toFace(h, f, e, g),
+    ...vector3toFace(d, h, k, l),
     ...d.toArray(),
     ...l.toArray(),
     ...c.toArray(),
@@ -72,5 +62,4 @@ export function computeBodyGeometry({
     ...k.toArray(),
     ...g.toArray(),
   ]);
-  return vertices;
 }
