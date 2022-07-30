@@ -18,7 +18,7 @@ export function GeneralInputForm() {
       <Switch
         mt={16}
         checked={showBodyDistances}
-        label="Show Body Distances"
+        label="Show Body Measurements"
         onChange={(event) => {
           setParameters({ showBodyDistances: event.currentTarget.checked });
         }}
@@ -26,7 +26,7 @@ export function GeneralInputForm() {
       <Switch
         mt={16}
         checked={showTailDistances}
-        label="Show Tail Distances"
+        label="Show Tail Measurements"
         onChange={(event) => {
           setParameters({ showTailDistances: event.currentTarget.checked });
         }}
