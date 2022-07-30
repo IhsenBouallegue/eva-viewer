@@ -32,6 +32,7 @@ export function AirplaneMesh({
   tailWidth,
   totalLength,
   showBodyDistances,
+  showTailDistances,
   airplaneColor,
   wingLengthScale,
   wingHeightScale,
@@ -107,8 +108,11 @@ export function AirplaneMesh({
     <group ref={groupMesh} position={[0, bodyHeight, -posLength / 2]}>
       {showBodyDistances &&
         bodyDistances.map((distance) => DistanceLabel(distance))}
-      {showBodyDistances &&
-        tailDistances.map((distance) => DistanceLabel(distance))}
+      {showTailDistances && (
+        <group position={[0, 0, totalLength]}>
+          {tailDistances.map((distance) => DistanceLabel(distance))}
+        </group>
+      )}
       <mesh geometry={mergedGeometry}>
         <meshStandardMaterial
           flatShading
@@ -119,7 +123,7 @@ export function AirplaneMesh({
         />
         {showBodyDistances && <Edges scale={1} color="white" />}
       </mesh>
-      <mesh geometry={mergedTailGeometry}>
+      <mesh geometry={mergedTailGeometry} position={[0, 0, totalLength]}>
         <meshStandardMaterial
           flatShading
           color={airplaneColor}
@@ -127,7 +131,7 @@ export function AirplaneMesh({
           metalness={0.5}
           side={THREE.DoubleSide}
         />
-        {showBodyDistances && <Edges scale={1} color="white" />}
+        {showTailDistances && <Edges scale={1} color="white" />}
       </mesh>
       <WingMesh
         wingLengthScale={wingLengthScale}

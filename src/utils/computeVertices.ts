@@ -58,21 +58,20 @@ export const computeTailVertices = ({
   tailWidth,
   tailLength,
   alpha,
-  totalLength,
 }: AirplaneParameters) => {
-  const m = new THREE.Vector3(0, 0, totalLength);
-  const n = new THREE.Vector3(tailWidth, 0, totalLength);
+  const m = new THREE.Vector3(0, 0, 0);
+  const n = new THREE.Vector3(tailWidth, 0, 0);
   const o = new THREE.Vector3(
     0,
     -tailHeight,
-    tailHeight / Math.tan(rad(alpha))
+    tailHeight / Math.tan(rad(alpha)) + 0
   );
-  const p = new THREE.Vector3(0, 0, tailLength + totalLength);
-  const q = new THREE.Vector3(tailWidth, 0, tailLength + totalLength);
+  const p = new THREE.Vector3(0, 0, tailLength + 0);
+  const q = new THREE.Vector3(tailWidth, 0, tailLength + 0);
   const r = new THREE.Vector3(
     0,
     -tailHeight,
-    tailLength - tailHeight / Math.tan(rad(alpha)) + totalLength
+    tailLength - tailHeight / Math.tan(rad(alpha)) + 0
   );
 
   return {

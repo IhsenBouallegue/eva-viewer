@@ -3,8 +3,13 @@ import { ColorInput, NumberInput, Switch } from "@mantine/core";
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
 export function GeneralInputForm() {
-  const { setParameters, alpha, showBodyDistances, airplaneColor } =
-    useEvaViewerContext();
+  const {
+    setParameters,
+    alpha,
+    showBodyDistances,
+    showTailDistances,
+    airplaneColor,
+  } = useEvaViewerContext();
   return (
     <>
       <NumberInput
@@ -29,6 +34,14 @@ export function GeneralInputForm() {
         label="Show Body Distances"
         onChange={(event) => {
           setParameters({ showBodyDistances: event.currentTarget.checked });
+        }}
+      />
+      <Switch
+        mt={16}
+        checked={showTailDistances}
+        label="Show Tail Distances"
+        onChange={(event) => {
+          setParameters({ showTailDistances: event.currentTarget.checked });
         }}
       />
     </>
