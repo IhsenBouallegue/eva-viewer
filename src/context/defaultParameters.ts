@@ -31,7 +31,7 @@ const defaultWingParameters: WingParameters = {
 const defaultMiscParameters: MiscParameters = {
   showBodyDistances: false,
   showTailDistances: false,
-  airplaneColor: "#646572",
+  airplaneColor: "#2b2b28",
 };
 
 export default {
