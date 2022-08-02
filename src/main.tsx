@@ -1,6 +1,7 @@
 import { MantineProvider } from "@mantine/core";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import App from "./App";
 import { EvaViewerContextProvider } from "./context/EvaViewerContext";
@@ -12,7 +13,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
       <EvaViewerContextProvider>
-        <App />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+          </Routes>
+        </BrowserRouter>
       </EvaViewerContextProvider>
     </MantineProvider>
   </React.StrictMode>

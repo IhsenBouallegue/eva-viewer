@@ -7,13 +7,27 @@ import {
   PerspectiveCamera,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { InputForm } from "./components/InputForm";
 import { AirplaneMesh } from "./components/Meshes/AirplaneMesh";
 import { useEvaViewerContext } from "./context/EvaViewerContext";
+import type { Parameters } from "./types/Types";
+import { urlParamExtract } from "./utils/urlParamExtract";
 
 function App() {
   const context = useEvaViewerContext();
+
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    const params: Parameters = Object.fromEntries(
+      searchParams.entries()
+    ) as unknown as Parameters;
+    if (searchParams.toString()) context.setParameters(urlParamExtract(params));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box id="canvas-container" sx={{ height: "100vh", position: "relative" }}>
       <Canvas shadows>

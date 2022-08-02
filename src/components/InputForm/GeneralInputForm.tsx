@@ -1,10 +1,18 @@
-import { ColorInput, Switch } from "@mantine/core";
+import { Button, ColorInput, Switch } from "@mantine/core";
+import { useSearchParams } from "react-router-dom";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
 export function GeneralInputForm() {
-  const { setParameters, showBodyDistances, showTailDistances, airplaneColor } =
-    useEvaViewerContext();
+  const {
+    setParameters,
+    showBodyDistances,
+    showTailDistances,
+    airplaneColor,
+    ...rest
+  } = useEvaViewerContext();
+  const [, setSearchParams] = useSearchParams();
+
   return (
     <>
       <ColorInput
@@ -32,6 +40,21 @@ export function GeneralInputForm() {
           setParameters({ showTailDistances: event.currentTarget.checked });
         }}
       />
+      <Button
+        mt={16}
+        onClick={() => {
+          if (rest) {
+            setSearchParams({
+              airplaneColor,
+              ...rest,
+            } as unknown as string);
+          } else {
+            setSearchParams({});
+          }
+        }}
+      >
+        Share
+      </Button>
     </>
   );
 }
