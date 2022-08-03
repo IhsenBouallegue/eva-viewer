@@ -7,19 +7,26 @@ import { WingInputForm } from "./WingInputForm";
 
 export function InputForm() {
   return (
-    <Tabs>
-      <Tabs.Tab label="General">
+    <Tabs defaultValue="general">
+      <Tabs.List>
+        <Tabs.Tab value="general">General</Tabs.Tab>
+        <Tabs.Tab value="body">Body</Tabs.Tab>
+        <Tabs.Tab value="tail">Tail</Tabs.Tab>
+        <Tabs.Tab value="wing">Wing</Tabs.Tab>
+      </Tabs.List>
+
+      <Tabs.Panel value="general">
         <GeneralInputForm />
-      </Tabs.Tab>
-      <Tabs.Tab label="Body">
+      </Tabs.Panel>
+      <Tabs.Panel value="body">
         <BodyInputForm />
-      </Tabs.Tab>
-      <Tabs.Tab label="Tail">
+      </Tabs.Panel>
+      <Tabs.Panel value="tail">
         <TailInputForm />
-      </Tabs.Tab>
-      <Tabs.Tab label="Wing">
+      </Tabs.Panel>
+      <Tabs.Panel value="wing">
         <WingInputForm />
-      </Tabs.Tab>
+      </Tabs.Panel>
     </Tabs>
   );
 }

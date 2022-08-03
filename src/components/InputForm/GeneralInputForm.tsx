@@ -1,5 +1,4 @@
-import { Button, ColorInput, Switch } from "@mantine/core";
-import { useSearchParams } from "react-router-dom";
+import { CopyButton, Button, ColorInput, Switch } from "@mantine/core";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
@@ -9,9 +8,21 @@ export function GeneralInputForm() {
     showBodyDistances,
     showTailDistances,
     airplaneColor,
-    ...rest
+    // ...rest
   } = useEvaViewerContext();
-  const [, setSearchParams] = useSearchParams();
+  // TODO: Add searchParams to URL and copy them
+  // const [, setSearchParams] = useSearchParams();
+  // useEffect(() => {
+  //   if (rest) {
+  //     setSearchParams({
+  //       airplaneColor,
+  //       ...rest,
+  //     } as unknown as string);
+  //   } else {
+  //     setSearchParams({});
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [airplaneColor]);
 
   return (
     <>
@@ -40,21 +51,13 @@ export function GeneralInputForm() {
           setParameters({ showTailDistances: event.currentTarget.checked });
         }}
       />
-      <Button
-        mt={16}
-        onClick={() => {
-          if (rest) {
-            setSearchParams({
-              airplaneColor,
-              ...rest,
-            } as unknown as string);
-          } else {
-            setSearchParams({});
-          }
-        }}
-      >
-        Share
-      </Button>
+      <CopyButton value={window.location.href}>
+        {({ copied, copy }) => (
+          <Button mt={16} color={copied ? "orange" : "yellow"} onClick={copy}>
+            {copied ? "Copied! 👌" : "Share url"}
+          </Button>
+        )}
+      </CopyButton>
     </>
   );
 }

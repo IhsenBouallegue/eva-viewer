@@ -1,4 +1,4 @@
-import { InputWrapper, Slider } from "@mantine/core";
+import { Input, Slider } from "@mantine/core";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
@@ -7,7 +7,7 @@ export function WingInputForm() {
     useEvaViewerContext();
   return (
     <>
-      <InputWrapper label="Wing Length">
+      <Input.Wrapper label="Wing Length">
         <Slider
           min={100}
           max={200}
@@ -16,8 +16,8 @@ export function WingInputForm() {
             setParameters({ wingLength: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Wing Height">
+      </Input.Wrapper>
+      <Input.Wrapper label="Wing Height">
         <Slider
           min={10}
           max={height - 1}
@@ -26,8 +26,8 @@ export function WingInputForm() {
             setParameters({ wingHeight: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Wing Span">
+      </Input.Wrapper>
+      <Input.Wrapper label="Wing Span">
         <Slider
           min={500}
           max={1000}
@@ -36,7 +36,7 @@ export function WingInputForm() {
             setParameters({ wingSpan: val });
           }}
         />
-      </InputWrapper>
+      </Input.Wrapper>
     </>
   );
 }

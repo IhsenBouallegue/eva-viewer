@@ -1,4 +1,4 @@
-import { InputWrapper, Slider } from "@mantine/core";
+import { Input, Slider } from "@mantine/core";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
@@ -15,7 +15,7 @@ export function BodyInputForm() {
   } = useEvaViewerContext();
   return (
     <>
-      <InputWrapper label="Alpha">
+      <Input.Wrapper label="Alpha">
         <Slider
           placeholder="Alpha"
           value={alpha}
@@ -25,8 +25,8 @@ export function BodyInputForm() {
             setParameters({ alpha: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Sigma">
+      </Input.Wrapper>
+      <Input.Wrapper label="Sigma">
         <Slider
           min={30}
           max={60}
@@ -35,8 +35,8 @@ export function BodyInputForm() {
             setParameters({ sigma: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Width">
+      </Input.Wrapper>
+      <Input.Wrapper label="Width">
         <Slider
           min={50}
           max={300}
@@ -45,8 +45,8 @@ export function BodyInputForm() {
             setParameters({ width: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Head Height">
+      </Input.Wrapper>
+      <Input.Wrapper label="Head Height">
         <Slider
           min={10}
           max={100}
@@ -55,8 +55,8 @@ export function BodyInputForm() {
             setParameters({ height: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Belly Height">
+      </Input.Wrapper>
+      <Input.Wrapper label="Belly Height">
         <Slider
           min={10}
           max={100}
@@ -65,8 +65,8 @@ export function BodyInputForm() {
             setParameters({ bodyHeight: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Slant Length">
+      </Input.Wrapper>
+      <Input.Wrapper label="Slant Length">
         <Slider
           min={10}
           max={width}
@@ -75,8 +75,8 @@ export function BodyInputForm() {
             setParameters({ slantLength: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Total Length">
+      </Input.Wrapper>
+      <Input.Wrapper label="Total Length">
         <Slider
           min={200}
           max={700}
@@ -85,7 +85,7 @@ export function BodyInputForm() {
             setParameters({ totalLength: val });
           }}
         />
-      </InputWrapper>
+      </Input.Wrapper>
     </>
   );
 }

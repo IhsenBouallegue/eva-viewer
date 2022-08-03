@@ -1,4 +1,4 @@
-import { InputWrapper, Slider } from "@mantine/core";
+import { Input, Slider } from "@mantine/core";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
 
@@ -13,7 +13,7 @@ export function TailInputForm() {
   } = useEvaViewerContext();
   return (
     <>
-      <InputWrapper label="Tail Height">
+      <Input.Wrapper label="Tail Height">
         <Slider
           min={10}
           max={bodyHeight}
@@ -22,8 +22,8 @@ export function TailInputForm() {
             setParameters({ tailHeight: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Tail Width">
+      </Input.Wrapper>
+      <Input.Wrapper label="Tail Width">
         <Slider
           min={10}
           max={width}
@@ -32,8 +32,8 @@ export function TailInputForm() {
             setParameters({ tailWidth: val });
           }}
         />
-      </InputWrapper>
-      <InputWrapper label="Tail Length">
+      </Input.Wrapper>
+      <Input.Wrapper label="Tail Length">
         <Slider
           min={10}
           max={500}
@@ -42,7 +42,7 @@ export function TailInputForm() {
             setParameters({ tailLength: val });
           }}
         />
-      </InputWrapper>
+      </Input.Wrapper>
     </>
   );
 }
