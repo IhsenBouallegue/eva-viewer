@@ -16,7 +16,7 @@ import {
   computeBodyGeometry,
   computeTailGeometry,
 } from "../../utils/computeGeometry";
-import { DistanceLabel } from "../../utils/distanceLabel";
+import { DistanceLabel } from "../../utils/DistanceLabel";
 
 import { WingMesh } from "./WingMesh";
 
