@@ -92,7 +92,7 @@ function App() {
             marginBottom: "1em",
           }}
         >
-          <Image src="./assets/logo/eva_logo.svg" />
+          <Image src="./src/assets/logo/eva_logo.svg" />
         </div>
         <InputForm />
       </Box>
