@@ -23,8 +23,16 @@ export const computeBodyVertices = ({
   const c = new THREE.Vector3(0, 0, 0);
   const d = new THREE.Vector3(width, 0, width);
 
-  const e = new THREE.Vector3(0, height, totalLength);
-  const f = new THREE.Vector3(width - slantLength, height, totalLength);
+  const e = new THREE.Vector3(
+    0,
+    height,
+    totalLength - height / Math.tan(rad(alpha))
+  );
+  const f = new THREE.Vector3(
+    width - slantLength,
+    height,
+    totalLength - height / Math.tan(rad(alpha))
+  );
   const g = new THREE.Vector3(0, 0, totalLength);
   const h = new THREE.Vector3(width, 0, totalLength);
 

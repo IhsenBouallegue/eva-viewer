@@ -63,6 +63,8 @@ export function computeDistance({
     calculateDistance(e, g, "e", "g"),
     calculateDistance(e, f, "e", "f"),
     calculateDistance(k, l, "k", "l"),
+    calculateDistance(g, k, "g", "k"),
+    calculateDistance(g, c, "g", "c"),
   ];
 }
 
