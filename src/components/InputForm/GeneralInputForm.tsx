@@ -1,6 +1,9 @@
-import { CopyButton, Button, ColorInput, Switch } from "@mantine/core";
+import { ColorInput, Switch } from "@mantine/core";
+import { useState } from "react";
 
 import { useEvaViewerContext } from "../../context/EvaViewerContext";
+
+import FileButtons from "./FileButtons";
 
 export function GeneralInputForm() {
   const {
@@ -8,7 +11,7 @@ export function GeneralInputForm() {
     showBodyDistances,
     showTailDistances,
     airplaneColor,
-    // ...rest
+    ...rest
   } = useEvaViewerContext();
   // TODO: Add searchParams to URL and copy them
   // const [, setSearchParams] = useSearchParams();
@@ -23,6 +26,7 @@ export function GeneralInputForm() {
   //   }
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [airplaneColor]);
+  const [, setFile] = useState<File | null>(null);
 
   return (
     <>
@@ -51,13 +55,11 @@ export function GeneralInputForm() {
           setParameters({ showTailDistances: event.currentTarget.checked });
         }}
       />
-      <CopyButton value={window.location.href}>
-        {({ copied, copy }) => (
-          <Button mt={16} color={copied ? "orange" : "yellow"} onClick={copy}>
-            {copied ? "Copied! 👌" : "Share url"}
-          </Button>
-        )}
-      </CopyButton>
+      <FileButtons
+        parameters={{ airplaneColor, ...rest }}
+        setParameters={setParameters}
+        setFile={setFile}
+      />
     </>
   );
 }
